@@ -26,7 +26,9 @@ SECRET_KEY = 'x82#^@mba717rd&(q+y8^zbs4*@05ymewardrzo-q%o6vo1nrv'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+#TEMPLATE_DIRS = [
+#    '/home/sergey/djangoenv/bin/firstapp/templates/'
+#]
 
 # Application definition
 
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'firstapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/sergey/djangoenv/bin/firstapp/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
