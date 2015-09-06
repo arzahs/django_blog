@@ -23,7 +23,7 @@ def template_three(request):
 	return render_to_response('myview.html', {'name':view})
 
 def articles(request):
-	return render_to_response('articles.html', {'articles': })
+	return render_to_response('articles.html', {'articles': Article.objects.all() })
 
 def article(request, article_id=1):
-	return render_to_response('article.html', {'article': Article.odjects.get(id=article_id), 'comments': Comments.odjects.filter(comments_article_id = article_id)})
+	return render_to_response('article.html', {'article': Article.objects.get(id=article_id), 'comments': Comments.objects.filter(comments_article_id = article_id)})
