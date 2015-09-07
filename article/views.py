@@ -5,7 +5,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from article.models import Article, Comments
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core.context_processors import csrf
+from article.forms import CommentForm
 # Create your views here.
 def basic_one(request):
 	view = "basic_one"
@@ -21,6 +22,15 @@ def addlike(request, article_id):
 		raise Http404
 	return redirect("/")
 
+def addcomment(request, article_id):
+	if request.POST:
+		form =CommentForm(request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			comment.comments_article = Article.objects.get(id = article_id)
+			form.save()
+	return redirect('/articles/get/%s/' % article_id)
+
 def template_two(request):
 	view = "template_two"
 	t = get_template('myview.html')
@@ -34,7 +44,14 @@ def template_three(request):
 def articles(request):
 	return render_to_response('articles.html', {'articles': Article.objects.all() })
 
+#def article(request, article_id=1):
+#	return render_to_response('article.html', {'article': Article.objects.get(id=article_id), 'comments': Comments.objects.filter(comments_article_id = article_id)})
+
 def article(request, article_id=1):
-	return render_to_response('article.html', {'article': Article.objects.get(id=article_id), 'comments': Comments.objects.filter(comments_article_id = article_id)})
-
-
+	comment_form = CommentForm
+	args = {}
+	args.update(csrf(request))
+	args['article'] = Article.objects.get(id=article_id)
+	args['comments'] = Comments.objects.filter(comments_article_id=article_id)
+	args['form'] = comment_form 
+	return render_to_response('article.html', args)
