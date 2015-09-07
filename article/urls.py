@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 
-
 urlpatterns = [
+    url(r'^articles/addlike/(?P<article_id>\d+)/$', 'article.views.addlike'),
     url(r'^1/', 'article.views.basic_one'),
     url(r'^2/', 'article.views.template_two'),
     url(r'^3/', 'article.views.template_three'),
     url(r'^articles/all/$', 'article.views.articles'),
-    url(r'^articles/get/(?P<article_id>[0-9]+)/$', 'article.views.article'),
+    url(r'^articles/get/(?P<article_id>\d+)/$', 'article.views.article'),
     url(r'^', 'article.views.articles'),
+    url(r'^articles/addlike/(?P<article_id>\d+)/$', 'article.views.article')
+
 ]
