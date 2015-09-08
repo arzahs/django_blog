@@ -29,12 +29,14 @@ def addlike(request, article_id):
 	return redirect("/")
 
 def addcomment(request, article_id):
-	if request.POST:
+	if request.POST and ('pause' not in request.session):
 		form =CommentForm(request.POST)
 		if form.is_valid():
 			comment = form.save(commit=False)
 			comment.comments_article = Article.objects.get(id = article_id)
 			form.save()
+			request.session.set_expiry(60)
+			request.session['pause'] = True
 	return redirect('/articles/get/%s/' % article_id)
 
 def template_two(request):
@@ -49,9 +51,6 @@ def template_three(request):
 
 def articles(request):
 	return render_to_response('articles.html', {'articles': Article.objects.all() })
-
-#def article(request, article_id=1):
-#	return render_to_response('article.html', {'article': Article.objects.get(id=article_id), 'comments': Comments.objects.filter(comments_article_id = article_id)})
 
 def article(request, article_id=1):
 	comment_form = CommentForm
