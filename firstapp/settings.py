@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'article'
+    'article',
+    'loginsys'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,7 +60,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['/home/sergey/djangoenv/bin/firstapp/templates/',
-                 '/home/sergey/djangoenv/bin/firstapp/article/templates/'
+                 '/home/sergey/djangoenv/bin/firstapp/article/templates/',
+                 '/home/sergey/djangoenv/bin/firstapp/loginsys/templates/'
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

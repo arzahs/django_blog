@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^2/', 'article.views.template_two'),
     url(r'^3/', 'article.views.template_three'),
     url(r'^articles/all/$', 'article.views.articles'),
+    url(r'^page/(\d+)/$', 'article.views.articles'),
     url(r'^', 'article.views.articles'),
+
 
 ]
