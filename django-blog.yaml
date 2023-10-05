@@ -1,0 +1,39 @@
+namespace: django-blog
+django-blog:
+  defines: runnable
+  metadata:
+    name: django-blog
+    description: >-
+      A blog web application developed using Django. It allows users to create,
+      read and comment articles.
+    icon: https://emojiapi.dev/api/v1/globe_with_meridians.svg
+  containers:
+    django-blog:
+      build: .
+  services:
+    django-blog-tcp:
+      container: django-blog
+      port: .nan
+      host-port: .nan
+      publish: false
+      protocol: TCP
+  connections:
+    sqlite:
+      target: sqlite3/base
+      service: service
+  variables:
+    django-settings-module:
+      env: DJANGO_SETTINGS_MODULE
+      type: string
+      description: The settings module for Django
+      value: firstapp.settings
+    secret-key:
+      env: SECRET_KEY
+      type: string
+      description: The secret key used in production
+      value: '!!!SETME-USE-SECRETS!!!'
+    debug:
+      env: DEBUG
+      type: bool
+      description: Set to True to enable debugging mode
+      value: true
